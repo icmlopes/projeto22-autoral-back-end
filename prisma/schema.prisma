@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @unique @default(autoincrement())
+  email        String         @unique
+  password     String
+  userType     String?
+  createdAt    DateTime?      @default(now())
+  updatedAt    DateTime?      @updatedAt
+  Lawyer       Lawyer[]
+  Client       Client[]
+  Session      Session[]
+  CaseProgress CaseProgress[]
+}
+
+model Lawyer {
+  id          Int       @id @unique @default(autoincrement())
+  name        String    @db.VarChar(100)
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  userId      Int
+  User        User      @relation(fields: [userId], references: [id])
+  BarNumberId Int
+  BarNumber   BarNumber @relation(fields: [barNumberId], references: [id])
+  barNumberId Int
+}
+
+model Client {
+  id            Int        @id @unique @default(autoincrement())
+  name          String     @db.VarChar(100)
+  rg            String     @db.VarChar(20)
+  cpf           String     @unique @db.VarChar(11)
+  phone         String     @db.VarChar(11)
+  birthday      DateTime
+  occupation    String?    @db.VarChar(100)
+  maritalStatus String?    @db.VarChar(30)
+  nationality   String?    @db.VarChar(30)
+  birthPlace    String?    @db.VarChar(30)
+  userId        Int
+  addressId     Int
+  AddressId     Address    @relation(fields: [addressId], references: [id])
+  createdAt     DateTime?  @default(now())
+  updatedAt     DateTime?  @updatedAt
+  User          User       @relation(fields: [userId], references: [id])
+  LawSuite      LawSuite[]
+}
+
+model Address {
+  id           Int      @id @unique @default(autoincrement())
+  cep          String?  @db.VarChar(8)
+  street       String?  @db.VarChar(100)
+  city         String?  @db.VarChar(100)
+  state        String?  @db.VarChar(100)
+  number       String?  @db.VarChar(100)
+  neighborhood String?  @db.VarChar(100)
+  complement   String?  @db.VarChar(100)
+  Client       Client[]
+}
+
+model Session {
+  id        Int       @id @unique @default(autoincrement())
+  token     String?
+  userId    Int
+  User      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model BarNumber {
+  id        Int       @id @unique @default(autoincrement())
+  oab       String    @unique
+  state     String?
+  createdAt DateTime? @default(now())
+  Lawyer    Lawyer[]
+}
+
+model LegalArea {
+  id       Int        @id @unique @default(autoincrement())
+  name     String?    @unique
+  LawSuite LawSuite[]
+}
+
+model LawSuite {
+  id           Int            @id @unique @default(autoincrement())
+  number       String
+  court        String?
+  courtNumber  String?
+  judge        String?
+  finished     Boolean?       @default(false)
+  createdAt    DateTime?      @default(now())
+  updatedAt    DateTime?      @updatedAt
+  clientId     Int
+  Client       Client         @relation(fields: [clientId], references: [id])
+  LegalAreaId  Int
+  LegalArea    LegalArea      @relation(fields: [legalAreaId], references: [id])
+  legalAreaId  Int
+  CaseProgress CaseProgress[]
+}
+
+model CaseProgress {
+  id         Int       @id @unique @default(autoincrement())
+  data       String?
+  createdAt  DateTime? @default(now())
+  lawsuitId  Int
+  LawSuite   LawSuite  @relation(fields: [lawSuiteId], references: [id])
+  userId     Int
+  User       User      @relation(fields: [userId], references: [id])
+  lawSuiteId Int
+}
