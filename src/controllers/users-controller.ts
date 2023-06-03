@@ -1,7 +1,6 @@
 import userService from "@/services/users-service";
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
-// import userService from "@/service/users-service";
 
 
 export async function registerUser(req: Request, res: Response, next: NextFunction){

@@ -2,7 +2,7 @@ import cors from 'cors'
 import express, { Express } from 'express'
 
 import { loadEnv, connectDb, disconnectDB } from '@/config'
-import { usersRouter } from './routers'
+import { authenticationRouter, usersRouter } from './routers'
 
 loadEnv()
 
@@ -13,6 +13,7 @@ app
 .use(express.json())
 .get('/verifying', (_req, res) => res.send('OK!'))
 .use('/', usersRouter)
+.use('/', authenticationRouter)
 
 export function init(): Promise<Express>{
     connectDb();
