@@ -1,10 +1,10 @@
-import { prisma } from "@/config";
+import { prisma } from "@/database";
 import { unauthorizedError } from "@/errors";
 import { NextFunction, Request, Response } from "express";
 import * as jwt from 'jsonwebtoken';
 
 
-export async function authenticateToken(req: Request, res: Response, next: NextFunction){
+export async function authenticateToken(req: AuthenticatedRequest, res: Response, next: NextFunction){
 
     const authHeader = req.header('Authorization')
 

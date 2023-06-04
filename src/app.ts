@@ -1,10 +1,10 @@
 import cors from 'cors'
 import express, { Express } from 'express'
 
-import { loadEnv, connectDb, disconnectDB } from '@/config'
+// import { loadEnv, connectDb, disconnectDB } from '@/config'
 import { authenticationRouter, usersRouter } from './routers'
 
-loadEnv()
+// loadEnv()
 
 const app = express()
 
@@ -15,14 +15,14 @@ app
 .use('/', usersRouter)
 .use('/', authenticationRouter)
 
-export function init(): Promise<Express>{
-    connectDb();
-    return Promise.resolve(app);
-}
+// export function init(): Promise<Express>{
+//     connectDb();
+//     return Promise.resolve(app);
+// }
 
-export async function close(): Promise<void> {
-    await disconnectDB();
-}
+// export async function close(): Promise<void> {
+//     await disconnectDB();
+// }
 
 export default app;
 
