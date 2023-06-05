@@ -1,5 +1,7 @@
 import cors from 'cors'
-import express, { Express } from 'express'
+// import express, { Express } from 'express'
+import express from 'express'
+
 
 // import { loadEnv, connectDb, disconnectDB } from '@/config'
 import { authenticationRouter, usersRouter } from './routers'
