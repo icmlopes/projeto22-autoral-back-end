@@ -1,11 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+import pkg from '@prisma/client'
+import dotenv from "dotenv";
+dotenv.config();
 
-export let prisma: PrismaClient;
+const { PrismaClient } = pkg;
 
-export function connectDb(): void {
-    prisma = new PrismaClient()
-}
+export const prisma = new PrismaClient()
 
-export async function disconnectDB(): Promise<void>{
-    await prisma?.$disconnect()
-}

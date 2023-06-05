@@ -21,6 +21,7 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
         if(error.name === 'DuplicatedEmailError'){
             return res.status(httpStatus.CONFLICT).send(error)
         }
+        console.log(error)
         return res.status(httpStatus.BAD_REQUEST).send(error)
     }
 }
