@@ -5,11 +5,11 @@ import httpStatus from "http-status";
 
 export async function registerUser(req: Request, res: Response, next: NextFunction){
 
-    const { email, password } = req.body
+    const { email, password, confirmPassword } = req.body
 
     try{
 
-        const user = await userService.createUser({ email, password });
+        const user = await userService.createUser({ email, password, confirmPassword });
 
         return res.status(httpStatus.CREATED).send({
             id: user.id,
@@ -21,7 +21,6 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
         if(error.name === 'DuplicatedEmailError'){
             return res.status(httpStatus.CONFLICT).send(error)
         }
-        console.log(error)
         return res.status(httpStatus.BAD_REQUEST).send(error)
     }
 }

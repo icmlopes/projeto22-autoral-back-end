@@ -1,9 +1,14 @@
-import { duplicatedEmailError } from "@/errors";
+import { differentPasswordError, duplicatedEmailError } from "@/errors";
+import { UserRegister } from "@/protocols";
 import userRepository from "@/repositories/users-repository";
 import { User } from "@prisma/client";
 import bcrypt from 'bcrypt';
 
-export async function createUser({ email, password }: CreateUserParams): Promise<User>{
+export async function createUser({ email, password, confirmPassword }: UserRegister): Promise<User>{
+
+    if(password !== confirmPassword){
+        throw differentPasswordError()
+    }
 
     await validateUniqueEmail(email)
 
@@ -21,9 +26,6 @@ async function validateUniqueEmail(email: string){
         throw duplicatedEmailError()
     }
 }
-
-export type CreateUserParams = Pick<User, 'email' | 'password'>
-
 
 const userService = {
     createUser,
