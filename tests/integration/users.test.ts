@@ -4,7 +4,7 @@ import httpStatus from "http-status";
 import supertest from "supertest";
 import { createUser } from "../factories/users-factory";
 import { cleanDb } from "../helpers";
-import { prisma } from "@/database";
+import { prisma } from "@/config/database";
 import app from "@/app";
 import { duplicatedEmailError } from "@/errors";
 
