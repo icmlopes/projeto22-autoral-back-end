@@ -6,3 +6,4 @@ export * from './unauthorized-error';
 export * from './duplicated-email-error';
 export * from './invalid-data-error'
 export * from './invalid-credential-error'
+export * from './different-password-error'
