@@ -5,6 +5,6 @@ import { login } from '@/controllers';
 
 const authenticationRouter = Router()
 
-authenticationRouter.post('/signin', validateBody(loginSchema), login);
+authenticationRouter.post('/', validateBody(loginSchema), login);
 
 export { authenticationRouter }

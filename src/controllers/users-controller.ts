@@ -18,6 +18,10 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
 
     } catch(error){
 
+        if(error.name === 'differentPasswordError'){
+            return res.status(httpStatus.CONFLICT).send(error)
+        }
+
         if(error.name === 'DuplicatedEmailError'){
             return res.status(httpStatus.CONFLICT).send(error)
         }
