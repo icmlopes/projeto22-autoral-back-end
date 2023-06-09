@@ -5,4 +5,5 @@ export const createUserSchema = Joi.object<UserRegister>({
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
     confirmPassword: Joi.string().min(6).required(),
+    userType: Joi.string().required(),
 })

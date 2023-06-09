@@ -4,7 +4,7 @@ import userRepository from "@/repositories/users-repository";
 import { User } from "@prisma/client";
 import bcrypt from 'bcrypt';
 
-export async function createUser({ email, password, confirmPassword }: UserRegister): Promise<User>{
+export async function createUser({ email, password, confirmPassword, userType }: UserRegister): Promise<User>{
 
     if(password !== confirmPassword){
         throw differentPasswordError()
@@ -17,6 +17,7 @@ export async function createUser({ email, password, confirmPassword }: UserRegis
     return userRepository.createUser({
         email,
         password: hashedPassword,
+        userType: userType,
     })
 }
 

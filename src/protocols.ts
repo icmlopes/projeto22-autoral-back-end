@@ -7,4 +7,5 @@ export type ApplicationError = {
     email: string;
     password: string;
     confirmPassword: string;
+    userType: string;
   };

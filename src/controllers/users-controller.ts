@@ -5,15 +5,16 @@ import httpStatus from "http-status";
 
 export async function registerUser(req: Request, res: Response, next: NextFunction){
 
-    const { email, password, confirmPassword } = req.body
+    const { email, password, confirmPassword, userType } = req.body
 
     try{
 
-        const user = await userService.createUser({ email, password, confirmPassword });
+        const user = await userService.createUser({ email, password, confirmPassword, userType });
 
         return res.status(httpStatus.CREATED).send({
             id: user.id,
-            email: user.email
+            email: user.email,
+            userType: user.userType,
         })
 
     } catch(error){
