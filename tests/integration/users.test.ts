@@ -4,7 +4,6 @@ import httpStatus from "http-status";
 import supertest from "supertest";
 import { createUser } from "../factories/users-factory";
 import { cleanDb } from "../helpers";
-import { prisma } from "@/config/database";
 import app from "@/app";
 import { duplicatedEmailError } from "@/errors";
 
@@ -66,23 +65,13 @@ describe("POST /register", () => {
       userType: userType,
     };
 
-    // const user = await prisma.user.findUnique({
-    //   where: { email: userBody.email },
-    // });
-
     const response = await server.post("/register").send(newUserBody);
-
-    console.log("1 - vendo aqui", response.status)
-    console.log("2 - vendo aqui", httpStatus.CONFLICT)
-    console.log("3 - vendo aqui", response.body)
-
 
     expect(response.status).toBe(httpStatus.CONFLICT);
     expect(response.body).toEqual({
       name: "DuplicatedEmailError",
       message: "Esse e-mail já possui uma conta em nosso sistema!",
     });
-
 
   });
 
