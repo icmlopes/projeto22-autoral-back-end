@@ -1,15 +1,16 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-export default {
+module.exports = {
+  preset: "ts-jest",
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1",
+  },
   preset: "ts-jest",
   testEnvironment: "node",
-  extensionsToTreatAsEsm: [".ts"],
-  globals: {
-    "ts-jest": {
-      useESM: true,
-    },
+  testMatch: ["**/*.test.ts"],
+  moduleFileExtensions: ["ts", "js"],
+  transform: {
+    "^.+\\.ts$": "ts-jest",
   },
-  moduleNameMapper: {
-    "^(\\.{1,2}/.*)\\.js$": "$1",
-  },
-  collectCoverage: true,
+  coverageDirectory: "coverage",
+  collectCoverageFrom: ["src/**/*.ts", "!src/**/*.spec.ts"],
 };
+require("dotenv").config({ path: ".env.test" });
