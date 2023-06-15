@@ -9,3 +9,9 @@ export type ApplicationError = {
     confirmPassword: string;
     userType: string;
   };
+
+  export type LawyerEnroll = {
+    name: string,
+    barNumberId: number,
+    userId: number,
+  }

@@ -4,7 +4,7 @@ import express from 'express'
 
 
 // import { loadEnv, connectDb, disconnectDB } from '@/config'
-import { authenticationRouter, usersRouter } from './routers'
+import { authenticationRouter, usersRouter, lawyerRouter, clientRouter } from './routers'
 
 // loadEnv()
 
@@ -16,6 +16,8 @@ app
 .get('/verifying', (_req, res) => res.send('OK!'))
 .use('/', usersRouter)
 .use('/', authenticationRouter)
+.use('/', lawyerRouter)
+.use('/', clientRouter)
 
 // export function init(): Promise<Express>{
 //     connectDb();

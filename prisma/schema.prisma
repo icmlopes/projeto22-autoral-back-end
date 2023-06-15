@@ -30,9 +30,8 @@ model Lawyer {
   updatedAt   DateTime? @updatedAt
   userId      Int
   User        User      @relation(fields: [userId], references: [id])
-  BarNumberId Int
-  BarNumber   BarNumber @relation(fields: [barNumberId], references: [id])
   barNumberId Int
+  BarNumber   BarNumber @relation(fields: [barNumberId], references: [id])
 }
 
 model Client {
@@ -41,7 +40,7 @@ model Client {
   rg            String     @db.VarChar(20)
   cpf           String     @unique @db.VarChar(11)
   phone         String     @db.VarChar(11)
-  birthday      DateTime
+  birthday      String
   occupation    String?    @db.VarChar(100)
   maritalStatus String?    @db.VarChar(30)
   nationality   String?    @db.VarChar(30)
