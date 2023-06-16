@@ -8,14 +8,6 @@ async function createLawyer(data: Prisma.LawyerUncheckedCreateInput){
     })
 }
 
-// async function createLawyer(name: string, userId: number, barNumberId: number){
-//     return prisma.lawyer.create({
-//         name,
-//         userId,
-//         barNumberId,
-//     })
-// }
-
 async function createBar(data: Prisma.BarNumberUncheckedCreateInput){
     return prisma.barNumber.create({
         data,

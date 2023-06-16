@@ -69,3 +69,45 @@ export async function getAllClients(req: AuthenticatedRequest, res: Response, ne
     return res.status(httpStatus.BAD_REQUEST).send(err.message);
   }
 }
+
+
+export async function updateClientInformation(req: AuthenticatedRequest, res: Response, next: NextFunction){
+
+  const { userId } = req
+
+  const id  = Number(req.params.id)
+
+  const updates = req.body
+
+  try{
+
+    const client = await clientService.updateClient(id, updates)
+
+    return res.status(httpStatus.OK).send(client)    
+
+  } catch(err){
+
+    return res.status(httpStatus.BAD_REQUEST).send(err.message);
+  }
+}
+
+
+export async function deleteClient(req: AuthenticatedRequest, res: Response, next: NextFunction){
+
+  const { userId } = req
+
+  const id = Number(req.params.id)
+
+  try{
+
+    await clientService.deleteClient(id)
+
+    return res.status(httpStatus.OK).send("Cliente apagado com sucesso")
+
+  } catch(err){
+
+    return res.status(httpStatus.BAD_REQUEST).send(err.message);
+
+
+  }
+}

@@ -1,4 +1,4 @@
-import { duplicatedCpfError, notFoundError } from "@/errors";
+import { badRequestError, duplicatedCpfError, notFoundError } from "@/errors";
 import clientRepository from "@/repositories/client-repository";
 import { Client } from "@prisma/client";
 
@@ -98,12 +98,61 @@ export async function getAllClients(userId: number){
   return client
 }
 
+async function getClientById(id: number){
+
+  const client = await clientRepository.getClientById(id)
+
+  if(!client){
+      throw notFoundError()
+  }
+}
+
+export async function updateClient(id: number, updates: Partial<Client>){
+
+  try{
+    await getClientById(id)
+
+    if(!getClientById){
+      throw notFoundError()
+    }
+
+    const client = await clientRepository.updateClientInfomation(id, updates)
+
+    return client
+
+  } catch(err){
+    throw badRequestError()
+  }
+}
+
+export async function deleteClient(id: number){
+
+  try{
+    await getClientById(id)
+
+    if(!getClientById){
+      throw notFoundError()
+    }
+
+    const deleteClient = await clientRepository.deleteClientInformation(id)
+    
+    return deleteClient
+
+  } catch(err){
+    throw badRequestError()
+  }
+
+}
+
 
 const clientService = {
     createNewLawyer,
     getClientByName,
     getAllClients,
-    verifyIfCPFAlreadyRegister
+    verifyIfCPFAlreadyRegister,
+    getClientById,
+    updateClient,
+    deleteClient
 };
 
 export default clientService;

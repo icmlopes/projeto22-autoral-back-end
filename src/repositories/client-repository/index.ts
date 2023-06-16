@@ -1,19 +1,11 @@
 import { prisma } from "../../config/database";
-import { Prisma } from "@prisma/client";
+import { Client, Prisma } from "@prisma/client";
 
 async function createClient(data: Prisma.ClientUncheckedCreateInput){
     return prisma.client.create({
         data,
     })
 }
-
-// async function createLawyer(name: string, userId: number, barNumberId: number){
-//     return prisma.lawyer.create({
-//         name,
-//         userId,
-//         barNumberId,
-//     })
-// }
 
 async function createAddres(data: Prisma.AddressUncheckedCreateInput){
     return prisma.address.create({
@@ -45,12 +37,42 @@ async function getAllClients(userId: number){
     })
 }
 
+async function getClientById(id: number){
+    return prisma.client.findFirst({
+        where:{
+            id,
+        }
+    })
+}
+
+async function updateClientInfomation(id: number, updates: Partial<Client>){
+
+    return prisma.client.update({
+        where: { 
+            id 
+        },
+        data: updates
+    })
+}
+
+async function deleteClientInformation(id: number){
+
+    return prisma.client.delete({
+        where: {
+            id
+        }
+    })
+}
+
 const clientRepository = {
     createClient,
     createAddres,
     findClientByName,
     getAllClients,
-    findClientByCpf
+    findClientByCpf,
+    getClientById,
+    updateClientInfomation,
+    deleteClientInformation
 }
 
 export default clientRepository;

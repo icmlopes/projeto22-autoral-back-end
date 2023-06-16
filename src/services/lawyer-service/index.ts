@@ -1,44 +1,6 @@
 import { duplicatedOabError } from "@/errors";
 import lawyerRepository from "@/repositories/lawyer-repository";
 import { Lawyer } from "@prisma/client";
-import bcrypt from 'bcrypt';
-
-// export async function createNewLawyer(name: string, userId: number, oab: string, state: string): Promise<Lawyer>{
-
-//     console.log("Tõ no service na função createNewLawyer", name, userId, oab, state)
-
-//     const getBarNumberId = await createBarNumber(oab, state)
-
-//     return lawyerRepository.createLawyer({
-//         name,
-//         userId,
-//         barNumberId: getBarNumberId.id,
-//     })
-// }
-
-
-// async function createBarNumber(oab: string, state: string){
-    
-
-//     await validateUniqueOab(oab)
-
-//     return lawyerRepository.createBar({
-//         oab,
-//         state
-//     })
-// }
-
-
-// async function validateUniqueOab(oab: string){
-
-//     const sameOab = await lawyerRepository.findByBarNumberByOab(oab)
-
-//     if (sameOab && sameOab.oab === oab) {
-//         throw duplicatedOabError();
-//       }
-// }
-
-// A PARTIR DAQUI HEEEIN
 
 export async function createNewLawyer(name: string, userId: number, oab: string, state: string): Promise<Lawyer> {
 
