@@ -12,6 +12,8 @@ export async function login(req: Request, res: Response, next: NextFunction){
 
         const result = await authenticationService.signIn({email, password})
 
+        console.log(result)
+
         return res.status(httpStatus.OK).send(result)
 
     } catch(error){

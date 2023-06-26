@@ -41,7 +41,7 @@ export async function createNewLawyer(
       addressId: getAddresId.id
     });
   } catch (error) {
-    throw error; // Retorna a rejeição para ser tratada no controlador
+    throw error; // Retorna a rejeição para ser tratada no controladors
   }
 }
 
